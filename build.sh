@@ -211,11 +211,12 @@ download \
   "4bec86331abef56129f9d1c994823f03" \
   "https://github.com/xiph/speex/archive/"
 
-download \
-  "n4.0.tar.gz" \
-  "ffmpeg4.0.tar.gz" \
-  "4749a5e56f31e7ccebd3f9924972220f" \
-  "https://github.com/FFmpeg/FFmpeg/archive"
+#download \
+#  "n4.0.tar.gz" \
+#  "ffmpeg4.0.tar.gz" \
+#  "4749a5e56f31e7ccebd3f9924972220f" \
+#  "https://github.com/FFmpeg/FFmpeg/archive"
+git clone https://gitlab.com/olaris/ffmpeg
 
 [ $download_only -eq 1 ] && exit 0
 
@@ -413,7 +414,7 @@ make install
 
 # FFMpeg
 echo "*** Building FFmpeg ***"
-cd $BUILD_DIR/FFmpeg*
+cd $BUILD_DIR/ffmpeg
 [ $rebuild -eq 1 -a -f Makefile ] && make distclean || true
 
 if [ "$platform" = "linux" ]; then

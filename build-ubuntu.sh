@@ -28,7 +28,8 @@ sudo apt-get -y --force-yes install \
   libxvidcore-dev \
   pkg-config \
   texi2html \
-  zlib1g-dev
+  zlib1g-dev \
+  git
 
 # For 12.04
 # libx265 requires cmake version >= 2.8.8
