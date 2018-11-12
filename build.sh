@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 set -e
 set -u
@@ -7,9 +7,10 @@ jflag=
 jval=2
 rebuild=0
 download_only=0
+ffmpeg_source_dir=""
 uname -mpi | grep -qE 'x86|i386|i686' && is_x86=1 || is_x86=0
 
-while getopts 'j:Bd' OPTION
+while getopts 'j:f:Bd' OPTION
 do
   case $OPTION in
   j)
@@ -21,6 +22,9 @@ do
       ;;
   d)
       download_only=1
+      ;;
+  f)
+      ffmpeg_source_dir=$(realpath "$OPTARG")
       ;;
   ?)
       printf "Usage: %s: [-j concurrency_level] (hint: your cores + 20%%) [-B] [-d]\n" $(basename $0) >&2
@@ -85,10 +89,10 @@ cd $BUILD_DIR
   "http://www.tortall.net/projects/yasm/releases/"
 
 [ $is_x86 -eq 1 ] && download \
-  "nasm-2.13.01.tar.gz" \
+  "nasm-2.14rc16.tar.xz" \
   "" \
-  "16050aa29bc0358989ef751d12b04ed2" \
-  "http://www.nasm.us/pub/nasm/releasebuilds/2.13.01/"
+  "a36f767b69eb0086d1febb796df99a47" \
+  "https://www.nasm.us/pub/nasm/releasebuilds/2.14rc16/"
 
 download \
   "OpenSSL_1_0_2o.tar.gz" \
@@ -216,7 +220,9 @@ download \
 #  "ffmpeg4.0.tar.gz" \
 #  "4749a5e56f31e7ccebd3f9924972220f" \
 #  "https://github.com/FFmpeg/FFmpeg/archive"
-git clone https://gitlab.com/olaris/ffmpeg
+if [ -z $ffmpeg_source_dir ]; then
+  git clone https://gitlab.com/olaris/ffmpeg
+fi
 
 [ $download_only -eq 1 ] && exit 0
 
@@ -414,7 +420,12 @@ make install
 
 # FFMpeg
 echo "*** Building FFmpeg ***"
-cd $BUILD_DIR/ffmpeg
+
+if [ -z $ffmpeg_source_dir ]; then
+  cd $BUILD_DIR/ffmpeg
+else
+  cd $ffmpeg_source_dir
+fi
 [ $rebuild -eq 1 -a -f Makefile ] && make distclean || true
 
 if [ "$platform" = "linux" ]; then
