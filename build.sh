@@ -442,7 +442,6 @@ if [ "$platform" = "linux" ]; then
     --enable-pic \
     --enable-ffplay \
     --enable-fontconfig \
-    --enable-frei0r \
     --enable-gpl \
     --enable-version3 \
     --enable-libass \
@@ -450,8 +449,6 @@ if [ "$platform" = "linux" ]; then
     --enable-libfdk-aac \
     --enable-libfreetype \
     --enable-libmp3lame \
-    --enable-libopencore-amrnb \
-    --enable-libopencore-amrwb \
     --enable-libopenjpeg \
     --enable-libopus \
     --enable-librtmp \
@@ -482,7 +479,6 @@ elif [ "$platform" = "darwin" ]; then
     --enable-pic \
     --enable-ffplay \
     --enable-fontconfig \
-    --enable-frei0r \
     --enable-gpl \
     --enable-version3 \
     --enable-libass \
@@ -490,8 +486,6 @@ elif [ "$platform" = "darwin" ]; then
     --enable-libfdk-aac \
     --enable-libfreetype \
     --enable-libmp3lame \
-    --enable-libopencore-amrnb \
-    --enable-libopencore-amrwb \
     --enable-libopenjpeg \
     --enable-libopus \
     --enable-librtmp \
