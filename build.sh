@@ -349,7 +349,7 @@ cd librtmp
 # there's no configure, we have to edit Makefile directly
 sed -i='' "/INC=.*/d" ./Makefile # Remove INC if present from previous run.
 if [ "$platform" = "linux" ]; then
-  sed -i='' "s/prefix=.*/prefix=${TARGET_DIR_SED}\nINC=-I$(prefix)\/include/" ./Makefile
+  sed -i='' "s/prefix=.*/prefix=${TARGET_DIR_SED}\nINC=-I\\$\(prefix\)\/include/" ./Makefile
 elif [ "$platform" = "darwin" ]; then
   # BSD sed does not support \n
   perl -pi -e "s/prefix=.*/prefix=${TARGET_DIR_SED}\nINC=-I\\$\(prefix\)\/include/" ./Makefile
